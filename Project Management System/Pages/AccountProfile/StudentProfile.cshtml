@@ -1,0 +1,86 @@
+﻿@page
+@model Project_Management_System.Pages.AccountProfile.StudentProfileModel
+@{
+}
+
+@inject SignInManager<SPMS_User> SignInManager
+@inject UserManager<SPMS_Student> UserManager
+
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff</title>
+<link rel="stylesheet" href="~/css/staffProfile.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="~/js/staffInfoBoxes.js"></script>
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry & Scott-->
+
+<h3>@ViewData["Title"]</h3> 
+
+<div class="body--profile--container">
+    <div class="body--profile--name">
+        <span>
+            @{
+                var user = await UserManager.GetUserAsync(User);
+            }
+            @(user.Name)<!-- Greet user by there name rather than username -->
+        </span>
+    </div>
+
+    <div class="body--profile--profilePicture">
+        @{
+            try
+            {
+                <img src="@string.Format("data:image/jpg;base64, {0}", Convert.ToBase64String(@user.ProfilePicture))" alt="Profile Image" class="staffimg" />
+            }
+            catch
+            {
+                <!-- Handle if there's no profile picture -->
+            }
+        }
+        <!--Have this hidden for anyone but their profile-->
+        <div class="body--profile--updatePicture">
+            <form method="post" enctype="multipart/form-data">
+                <input type="file" class="uploadedImage" name="uploadedImage" onchange="this.form.submit();" />
+            </form>
+        </div>
+    </div>
+
+    <div class="body--profile--infoSection">
+
+        <div class="body--profile--infoGroup">
+            <label for="studentid">StudentID</label>
+            <div class="staffInfoBox">
+                <span name="studentid" class="body--profile--email">
+                    @(user.StudentNo)<!-- Greet user by there name rather than username -->
+            </div>
+        </div>
+        <!-- Iterates through all courses and displays course that matches logged in user -->
+        @foreach (var course in Model.Course.Where(i => i.CourseID == user.CourseID))
+        {
+            <div class="body--profile--infoGroup">
+                <label for="courseid">Course</label>
+                <div class="staffInfoBox">
+                    <span name="courseid" class="body--profile--email">
+                        @(course.CourseName)
+                </div>
+            </div>
+        }
+
+        <div class="body--profile--infoGroup">
+            <label for="email">Email</label>
+            <div class="staffInfoBox">
+                <span name="email" class="body--profile--email">
+                    @(user.Email)<!-- Greet user by there name rather than username -->
+            </div>
+        </div>
+    </div>
+    
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }

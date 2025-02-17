@@ -1,0 +1,76 @@
+﻿/* Created by George, Commented by Scott */
+
+body {
+}
+/* Container for add topic form */
+.body--addProposal--container {
+    position: absolute;
+    top: 180px;
+    left: 50%;
+    width: 90%;
+    min-height: 880px;
+    transform: translateX(-50%);
+    border: 1px solid #ccc;
+    background-color: #F0F0F0;
+    display: flex;
+    flex-direction: column;
+}
+/* Title */
+.addTitle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    border-bottom: 2px solid red;
+}
+/* Css for each group of the form */
+.addGroup {
+    position: relative;
+    top: 80px;
+    left: 20px;
+    margin-top: 20px;
+    width: 40%;
+    padding: 10px;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 2px #888888;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+/* CSS for input text for each group of form */
+.addGroup input {
+    font-size: 18px;
+    padding: 8px;
+}
+/* CSS for textarea of topic description */
+.addGroup textarea {
+    resize: none;
+    height: 200px;
+}
+/* Styled Label */
+.addGroup label {
+    font-size: 20px;
+}
+/* Css For buttons */
+.addBtn {
+    position: relative;
+    left: 50%;
+    width: 40%;
+    height: 50px;
+    transform: translateX(-50%);
+    border: none;
+    background-color: #4E9FFE;
+    color: white;
+    font-size: 18px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+/* Changes background color when hovered over by user */
+.addBtn:hover {
+    background-color: #2B80E4;
+}
+
+footer {
+    top: 1200px !important;
+}

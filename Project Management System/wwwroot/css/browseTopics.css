@@ -1,0 +1,420 @@
+﻿/* Following CSS Created by: George */
+
+
+.body--browseTopics--title {
+    position: absolute;
+    top: 170px;
+    left: 50px;
+    font-size: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid red;
+}
+
+/* CSS for the search navigation bar */
+.body--search--container {
+    position: absolute;
+    top: 145px;
+    left: 60%;
+    width: 35%;
+    max-width: 400px;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    background-color: #ECECEC;
+}
+
+.body--Topics--addTopicContainer {
+    position: relative;
+    top: 0px;
+    left: 10px;
+    height: 50px;
+    width: 10%;
+    max-width: 70px;
+    background-color: #ECECEC;
+    z-index: 99;
+}
+
+.body--Topics--addTopicContainer button {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 50px;
+    border: none;
+    background-color: white;
+    box-shadow: 3px 3px 3px #888888;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.body--Topics--addTopicContainer button:hover {
+    background-color: #F69191;
+}
+
+.addIcon {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    height: 40px;
+    width: 40px;
+    transform: translate(-50%, -50%);
+    background-image: url(../images/plusIcon.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: black;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    background-color: transparent;
+    transition: 0.3s all;
+}
+
+/* Represents CSS for input on the search navigation bar */
+.body--search--container input {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    width: 80%;
+    height: 35px;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: 1px solid black;
+}
+
+/* Style for the search button */
+.body--search--container button[type=submit] {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    height: 80%;
+    width: 12%;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.submitIcon {
+    position: relative;
+    background-image: url(../images/SearchIcon.svg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 75%;
+    height: 75%;
+}
+
+
+/* When hovered over, it creates a black 1px border */
+.body--search--container button:hover {
+    border: 1px solid black;
+}
+
+/* Style the dropdown container */
+.dropdown {
+    position: relative;
+    right: 0;
+    top: 100px;
+    display: inline-block;
+}
+
+/* Style the dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    /* Style the links inside the dropdown */
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Style the dropdown trigger */
+.drop-trigger {
+    cursor: pointer;
+    color: blue;
+}
+
+.clearbtn {
+    position: absolute;
+    top: 65px;
+    right: 65%;
+    width: 85px;
+    height: 35px;
+    padding: 10px;
+    border: 2px solid;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Main container to display topics */
+.body--Topics--container {
+    position: absolute;
+    top: 250px;
+    left: 50%;
+    width: 90%;
+    height: 600px;
+    transform: translateX(-50%);
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    background-color: #ECECEC;
+    border-radius: 5px;
+    padding: 10px 0;
+}
+/* Represents the css of each topic box*/
+.topicBox {
+    position: relative;
+    width: 90%;
+    min-height: 80px;
+    margin: 12px auto;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 2px solid #6E6E6E;
+    box-shadow: 3px 3px 3px #888888;
+    transition: min-height 0.3s ease-in-out;
+    overflow: hidden; /* This hides the topic description when the toggle expansion is not expanded */
+}
+
+/* Represents css for topic name and assigned user */
+.topicBox span {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s;
+}
+
+/* CSS for topic title (name) */
+.topicTitle {
+    position: absolute;
+    left: 50px;
+}
+
+/* CSS for topic supervisor and supervisor icon */
+.SupervisorGroup {
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    min-width: 150px;
+    height: 50px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: row;
+    transition: all 0.3s;
+}
+
+/* CSS for supervisor text (displays name of assigned user) */
+.topicSupervisor {
+    text-decoration: underline;
+    cursor: pointer;
+    color: black;
+    word-break: normal;
+}
+/* CSS for the two buttons that can be clicked */
+.topicButtonContainer {
+    position: absolute;
+    right: 10px;
+    height: 100%;
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+}
+/* CSS for the form */
+.topicButtonContainer form {
+    width: 50%;
+}
+
+/* Button */
+.topicButtonContainer form button {
+    width: 100%;
+    border-right: 1px solid black;
+    background-color: #fcff00;
+}
+
+.topicButtonContainer button {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    border: none;
+    border-left: 1px solid black;
+    background-color: #4E9FFE;
+    cursor: pointer;
+}
+
+.supervisorIcon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -20px;
+    background-image: url(../images/SupervisorLogo.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s;
+}
+
+.topicDescription {
+    display: none;
+    transition: 0.3s ease-in-out;
+}
+
+.expandIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url(../images/ExpandListBox.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
+.addIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url(../images/plusIcon.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
+#editTopic {
+    background-color: #ffe832;
+}
+
+.editIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url(../images/editInfoBox.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
+.topicBox.expanded {
+    min-height: 300px;
+}
+
+    .topicBox.expanded .topicTitle {
+        top: 25px;
+    }
+
+    .topicBox.expanded .SupervisorGroup {
+        top: 25px;
+    }
+
+    .topicBox.expanded .topicDescription {
+        display: block;
+        position: absolute;
+        bottom: 50px;
+        width: 60%;
+        left: 30px;
+        font-size: 12px;
+    }
+
+footer {
+    top: 1000px !important;
+}
+
+@media(max-width: 768px) {
+
+    .body--browseTopics--title {
+        left: 15px;
+        top: 120px;
+    }
+
+    .body--search--container {
+        position: absolute;
+        left: 65%;
+        top: 180px;
+        width: 60%;
+        transform: translateX(-50%);
+    }
+
+    .clearbtn {
+        position: absolute;
+        top: -50px;
+        right: 10%;
+    }
+
+    .dropdown {
+        position: absolute;
+        top: 190px;
+        left: 5%;
+        width: 20%;
+    }
+
+    .body--Topics--container {
+        top: 240px;
+    }
+
+    .topicTitle {
+        left: 10px;
+        top: 15px !important;
+    }
+
+    .SupervisorGroup {
+        left: 10px !important;
+        top: 55px;
+    }
+
+    .topicBox.expanded .SupervisorGroup {
+        top: 55px;
+    }
+
+}
+
+@media (max-width: 400px) {
+    .supervisorIcon {
+        right: 25px !important;
+    }
+}
+
+@media (min-height: 1400px) {
+
+    .body--Topics--container {
+        height: 1200px;
+    }
+
+    footer {
+        top: 2000px !important;
+    }
+}
+
+
+/* This css is for the clear button on the index */
+

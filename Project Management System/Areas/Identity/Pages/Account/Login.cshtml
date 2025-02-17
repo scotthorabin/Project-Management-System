@@ -1,0 +1,132 @@
+﻿@page
+@model LoginModel
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry -->
+<!-- Error messaging by Scott -->
+
+@{
+    ViewData["Title"] = "Log in";
+}
+@{
+    var errorMessage = TempData["ErrorMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <script>alert('@errorMessage');</script>
+}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/loginRegister.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/loginRegisterToggler.js"></script>
+</head> <!-- Links to stylesheets and javaScript -->
+
+<div class="body--login--container">
+    <div class="body--login--uocContainer">
+        <div class="body--login--uocLogo"></div>
+    </div>
+    <!-- Form for user login -->
+    <form class="loginForm" method="post">
+        @{
+            ModelState.Clear();
+        }
+        <input asp-for="LoginInput.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Email" />
+        <span asp-validation-for="LoginInput.Email" class="error-message"></span> <!-- Display error message that email has either not been inputted or not in the correct format -->
+
+        <input asp-for="LoginInput.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" />
+        <span asp-validation-for="LoginInput.Password" class="error-message"></span> <!-- Display message that password has not been inputted -->
+
+        <div class="body--loginForm--checkboxContainer">
+            <label asp-for="LoginInput.RememberMe" class="form-label">
+                <input class="form-check-input" asp-for="LoginInput.RememberMe" />
+                @Html.DisplayNameFor(m => m.LoginInput.RememberMe)
+            </label> 
+        </div>
+        <a asp-page="./ForgotPassword" id="forgot-password">Forgotten your username or password?</a> <!-- Links to forgot password -->
+
+        <button id="login-submit" type="submit" class="body--login--submitButton" asp-page-handler="Login">Login</button>
+        <div asp-validation-summary="ModelOnly" class="body--register--errorMessage"></div>
+        <span asp-validation-summary="All" class="text-danger"></span> <!-- Displays error message -->
+    </form>
+
+    <div class="body--register--staffToggler" style="display: none;">
+        <button class="studentBtn">Student</button>
+        <span> / </span> <!-- Toggle between staff / student registration page -->
+        <button class="staffBtn">Staff</button>
+    </div>
+
+    <form class="registerForm" method="post" style="display: none;">
+        @{
+            ModelState.Clear();
+        }
+        <input asp-for="RegisterInput.FirstName" placeholder="Your first Name" required>
+        <span asp-validation-for="RegisterInput.FirstName" class="error-message"></span> <!-- Display error message for first name -->
+
+        <input asp-for="RegisterInput.Surname" placeholder="Your last Name" required>
+        <span asp-validation-for="RegisterInput.Surname" class="error-message"></span> <!-- Display error message for surname -->
+        <!--Student Number has a max length of 7 for the input field, may need changing for requirements-->
+        <input asp-for="RegisterInput.StudentNo" placeholder="Your Student Number" maxlength="7" required>
+        <span asp-validation-for="RegisterInput.StudentNo" class="error-message"></span> <!-- Display error message for student number -->
+
+        <input asp-for="RegisterInput.Email" placeholder="name@example.com" required>
+        <span asp-validation-for="RegisterInput.Email" class="error-message"></span> <!-- Display error message for email -->
+
+        <select asp-for="RegisterInput.CourseID" required>
+            <option value= null></option><!-- Show list of courses -->
+            @foreach (var course in Model.Course)
+            {
+                <option value="@course.CourseID">@Html.ValueFor(modelDivision => course.CourseName)</option>
+            }
+        </select>
+        <span asp-validation-for="RegisterInput.CourseID" class="error-message"></span> <!-- Display error message for course ID -->
+
+        <input asp-for="RegisterInput.Password" placeholder=" New Password" required>
+        <span asp-validation-for="RegisterInput.Password" class="error-message"></span> <!-- Display error message for password -->
+
+        <input asp-for="RegisterInput.ConfirmPassword" placeholder="Confirm Password" required>
+        <span asp-validation-for="RegisterInput.ConfirmPassword" class="error-message"></span> <!-- Display error message for confirm password -->
+
+        <button id="StudentRegisterSubmit" type="submit" class="body--register--submitButton" asp-page-handler="StudentRegister">Register</button>
+        <div asp-validation-summary="ModelOnly" class="body--register--errorMessage"></div>
+    </form>
+
+    <!-- Register page for students -->
+    <form class="registerFormStaff" method="post" style="display: none;">
+        <input asp-for="StaffRegisterInput.FirstName" placeholder="Your first Name" required>
+        <input asp-for="StaffRegisterInput.Surname" placeholder="Your last Name" required>
+        <input asp-for="StaffRegisterInput.Email" placeholder="name@example.com" required>
+        <p>If you belong to multiple divisions, please add one for now then head to the staff profile page to add more.</p>
+        <select asp-for="StaffRegisterInput.DivisionID" required>
+            <option value= null></option> <!-- Show list of divisions for staff to choose -->
+            @foreach (var division in Model.Division)
+            {
+                <option value="@division.DivisionID">@Html.ValueFor(modelDivision => division.DivisionName)</option>
+            }
+        </select>
+        <input asp-for="StaffRegisterInput.Password" placeholder=" New Password" required>
+        <input asp-for="StaffRegisterInput.ConfirmPassword" placeholder="Confirm Password" required>
+        <div class="body--loginForm--checkboxContainer">
+            <label asp-for="StaffRegisterInput.ProjectCoordinator" class="form-label">
+                <input class="form-check-input" asp-for="StaffRegisterInput.ProjectCoordinator" />
+                @Html.DisplayNameFor(m => m.StaffRegisterInput.ProjectCoordinator)
+            </label>
+        </div>
+
+        <button id="StaffRegisterSubmit" type="submit" class="body--register--submitButton" asp-page-handler="StaffRegister">Register</button>
+        <div asp-validation-summary="ModelOnly" class="body--register--errorMessage"></div>
+    </form>
+    <!-- Lets users switch between login and register on same page -->
+    <div class="body--register--newUserToggler">
+        <span class="body--login--newUser">New here? Register below: </span>
+        <button class="body--register--inputToggle">Register</button>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

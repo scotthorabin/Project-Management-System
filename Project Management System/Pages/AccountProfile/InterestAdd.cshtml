@@ -1,0 +1,35 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+@model Project_Management_System.Pages.AccountProfile.AddModel
+
+<link href="~/css/addProposal.css" rel="stylesheet" />
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry & Scott-->
+
+<div class="body--addProposal--container">
+    <span class="addTitle">Add an Interest</span>
+
+    <form method="post">
+        <div class="addGroup">
+            <label for="topicName">Interest</label>
+            <input id="topicName"asp-for="StaffInterest.Interest" />
+        </div>
+
+        <div class="addGroup">
+            <button type="submit" class="addBtn">Add Interest</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

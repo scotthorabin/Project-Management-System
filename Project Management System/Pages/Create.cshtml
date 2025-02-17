@@ -1,0 +1,98 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+@model Project_Management_System.Pages.CreateModel
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry & Scott-->
+
+
+<!-- CSS  -->
+<link href="~/css/addProposal.css" rel="stylesheet" />
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- Implemented UserManager for managing staff -->
+@inject UserManager<SPMS_Staff> StaffManager
+
+<!-- adding a topic -->
+<div class="body--addProposal--container">
+    <span class="addTitle">Add a topic</span>
+
+    <!-- Form for adding a topic -->
+    <form method="post">
+        <!-- User Input for Topic Name -->
+        <div class="addGroup">
+            <label for="topicName">Topic Name</label>
+            <input id="topicName" asp-for="Topic.TopicName" />
+        </div>
+
+        <!-- if user is a Co-ordinator -->
+        @if (User.IsInRole("Co-ordinator"))
+        {
+            <!-- Dropdown for selecting Topic Supervisor -->
+            <div class="addGroup">
+                <label for="TopicSupervisor">Topic Supervisor</label>
+                <select asp-for="Topic.SupervisorID">
+                    <option value= null>Choose supervisor here</option>
+                    <!-- Iterate through staff members -->
+                    @foreach (var staff in StaffManager.Users)
+                    {
+                        <!-- Option for each staff member -->
+                        <option value=@staff.Id>@staff.Name</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Dropdown for selecting Topic Marker -->
+            <div class="addGroup">
+                <label for="TopicMarker">Topic Marker</label>
+                <select asp-for="Topic.MarkerID">
+                    <option value= null>Choose marker here</option>
+                    <!-- Iterate through staff members -->
+                    @foreach (var staff in StaffManager.Users)
+                    {
+                        <!-- Option to show each staff member -->
+                        <option value=@staff.Id>@staff.Name</option>
+                    }
+                </select>
+            </div>
+        }
+
+        <!-- Implemented a dropdown for selecting Topic Course -->
+        <div class="addGroup">
+            <label for="TopicCourse">Topic Course</label>
+            <select asp-for="CourseTopic.CourseID">
+                <option value="">Choose course here</option>
+                <!-- Iterate through courses -->
+                @foreach (var course in Model.Course)
+                {
+                    <!-- Option for each of the courses -->
+                    <option value=@course.CourseID>@course.CourseName</option>
+                }
+            </select>
+        </div>
+
+        <!-- Textarea for user to input Topic Description -->
+        <div class="addGroup">
+            <label for="topicDescription">Topic Description</label>
+            <textarea id="topicDescription" asp-for="Topic.TopicDescription"></textarea>
+        </div>
+
+        <!-- Button for user to submit form -->
+        <div class="addGroup">
+            <button type="submit" class="addBtn">Add Topic</button>
+        </div>
+    </form>
+</div>
+
+<!-- validation scripts -->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!--Page created by Scott, Commented by Scott-->

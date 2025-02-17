@@ -1,0 +1,246 @@
+﻿@page
+@model Project_Management_System.Pages.Submit_ProposalModel
+@{
+}
+
+@inject SignInManager<SPMS_User> SignInManager
+@inject UserManager<SPMS_Student> StudentManager
+@inject UserManager<SPMS_Staff> StaffManager
+
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+
+<link rel="stylesheet" href="~/css/submitProposals.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+
+<script src="~/js/proposalDragDrop.js"></script>
+
+@{
+    var student = await StudentManager.GetUserAsync(User);
+}
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry -->
+<!-- Error messaging by Scott -->
+
+@if(Model.Postgraduate){ <!-- Checks if user is a postgraduate and if so will display postgrad verison -->
+    <div class="body--submitLevel7--container">
+        <div class="body--submitLevel7--title">
+            <span>Level 7 Dissertation Project Preferences</span>
+        </div>
+
+        <ul class="body--submitLevel6--studentDetails">
+            @if(student!= null)
+            {
+                <li>Student Name: @student.Name</li>
+                <li>Student Number: @student.StudentNo</li> <!-- Displays course name of student -->
+                @foreach (var course in Model.Course)
+                {
+                    <li>Degree Programme: @course.CourseName</li>
+                }
+            }
+        </ul>
+
+        <form method="post" action="">
+            <div class="confirmDetailsContianer">
+                <input type="checkbox" class="detailsCorrect" name="confirmDetails">
+                <label for="confirmDetails">I confirm that these Details are correct,</label>
+                <label class="incorrectDetails" for="confirmDetails">
+                    My details are incorrect
+                    <div class="additionalInfo">
+                        <span>Please contact your PAT or your head of department immediately if your details are incorrect</span>
+                    </div>
+                </label>
+            </div>
+
+            <div class="body--proposal--Toggler">
+                <button class="TopicsBtn">Topics</button>
+                <span> / </span> <!-- Allows student to toggle between divs -->
+                <button class="FormUploadBtn">Add your own</button>
+            </div>
+
+            <div class="topicProposalContainer">
+                    <ul class="proposalsPriorityLevel7">
+                        <!-- Form containing all topics that the user has added -->
+                    @foreach (var proposal in Model.TopicBasket)
+                    {
+                        @foreach (var topic in Model.Topics.Where(i => i.TopicID == proposal.TopicID))
+                        {
+                            Model.Priority += 1;
+                            <li class="proposalBox" draggable="true" id="propsal1">
+                                <span class="proposalID">@Model.Priority</span>
+                                <div class="proposalDivider"></div>
+                                <h1>@topic.TopicName</h1>
+                                @if (topic.SupervisorID != null)
+                                {
+                                    var staff = await StaffManager.FindByIdAsync(topic.SupervisorID);
+                                    if(staff != null)
+                                    {
+                                        <h1>@staff.Name</h1>
+                                    }
+                                    
+                                } <!-- Allows student to remove topic from their basket -->
+                                <form method="post">
+                                    <button class="removeBox" type="submit" asp-page-handler="Delete" asp-route-topicID="@topic.TopicID">
+                                        <div class="removeIcon"></div>
+                                    </button>
+                                </form> <!--Passes topicID to delete handler -->
+                            </li>
+                        }
+                    }
+                </ul> <!-- Checks student has not already submitted -->
+                @if (!Model.Submitted)
+                {
+                    <form method="post">
+                        <button type="submit" class="submitProposal" asp-page-handler="PostgradSubmit">Submit</button>
+                    </form>
+                }
+            </div>
+
+            <div class="formUploadContainer">
+                <form method="post"> <!-- Form allowing student to submit their own topic -->
+                    <div class="addGroup">
+                        <label for="topicName">Topic Name</label>
+                        <input id="topicName" asp-for="Topic.TopicName" />
+                    </div>
+
+                    <div class="addGroup">
+                        <label for="TopicSupervisor">Topic Supervisor</label>
+                        <select asp-for="Topic.SupervisorID">
+                            <option value= null>Choose your prefered supervisor here</option>
+                            @foreach (var staff in StaffManager.Users)
+                            {
+                                <option value=@staff.Id>@staff.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="addGroup">
+                        <label for="topicDescription">Topic Description/Summary</label>
+                        <textarea id="topicDescription" asp-for="Topic.TopicDescription"></textarea>
+                    </div>
+                    <!-- Adds topic to student basket -->
+                    <button type="submit" class="submitProposal">Add Topic</button>
+                </form>
+            </div>
+        </form>
+    </div>
+}
+else @* If student is not postgraduate then display undergraduate *@
+{
+    <div class="body--submitLevel6--container">
+        <div class="body--submitLevel6--title">
+            <span>Dissertation Project Preferences</span>
+        </div>
+
+        <ul class="body--submitLevel6--studentDetails">
+            @if(student != null){
+                <li>Student Name: @student.Name</li>
+                <li>Student Number: @student.StudentNo</li> <!-- Displays course, name and studentNo of student-->
+            }
+            @foreach (var course in Model.Course)
+            {
+                <li>Degree Programme: @course.CourseName</li>
+            }
+        </ul>
+            <div class="confirmDetailsContianer">
+                <input type="checkbox" class="detailsCorrect" name="confirmDetails">
+                <label for="confirmDetails">I confirm that these Details are correct,</label>
+                <label class="incorrectDetails" for="confirmDetails">
+                    My details are incorrect
+                    <div class="additionalInfo">
+                        <span>Please contact your PAT or your head of department immediately if your details are incorrect</span>
+                    </div>
+                </label>
+            </div>
+
+            <div class="body--proposal--Toggler">
+                <button class="TopicsBtn">Topics</button>
+                <span> / </span>
+                <button class="FormUploadBtn">Add your own</button> <!-- Allows student to toggle between divs -->
+            </div>
+        <!-- Displays each topic student has added -->
+            @if (Model.TopicBasket.Count() > 0) 
+            {
+                <span class="proposalsTitle">Please order your <b>three</b> preferred project Topics with #1 being your <b>Top</b> Preference</span>
+                <ul class="proposalsPriority">
+                    @foreach (var proposal in Model.TopicBasket)
+                    {
+                        @foreach (var topic in Model.Topics.Where(i => i.TopicID == proposal.TopicID))
+                        {
+                            Model.Priority += 1;
+                            <li class="proposalBox" draggable="true" id="propsal1">
+                                <span class="proposalID">@Model.Priority</span>
+                                <div class="proposalDivider"></div>
+                                <h1>@topic.TopicName</h1>
+                                @if (topic.SupervisorID != null)
+                                {
+                                    var staff = await StaffManager.FindByIdAsync(topic.SupervisorID);
+                                    if(staff != null){
+                                        <h1>@staff.Name</h1> <!-- Displays name of supervisor -->
+                                    }
+                                }
+
+                                <form method="post">
+                                    <button class="removeBox" type="submit" asp-page-handler="Delete" asp-route-topicID="@topic.TopicID">
+                                        <div class="removeIcon"></div>
+                                    </button> <!-- Allows student to remove topic from basket -->
+                                </form>
+                            </li>
+
+                        }
+                    }
+                </ul>
+                <div class="informationIconContainer">
+                    <div class="informationIcon">!</div>
+                    <span>Drag and Drop the proposals to order them</span>
+                </div> <!-- If not already submitted allow student to submit their top 3 proposals -->
+                @if (!Model.Submitted) 
+                {
+                    <form method="post">
+                        <button type="submit" class="submitProposal" asp-page-handler="UndergradSubmit">Submit</button>
+                    </form>
+                }
+
+            }
+            else
+            {
+                <ul class="body--submitLevel6--studentDetails">
+                    <li>You have not added any topics.</li>
+                </ul> <!-- If no topics in basket then display message -->
+            }
+            <div class="formUploadContainer">
+                <form method="post">
+                    <div class="addGroup">
+                        <label for="topicName">Topic Name</label>
+                        <input id="topicName" asp-for="Topic.TopicName" />
+                    </div> <!-- Allows users to create own topic proposal -->
+
+                    <div class="addGroup">
+                        <label for="TopicSupervisor">Topic Supervisor</label>
+                        <select asp-for="Topic.SupervisorID">
+                            <option value= null>Choose your prefered supervisor here</option>
+                            @foreach (var staff in StaffManager.Users)
+                            {
+                                <option value=@staff.Id>@staff.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="addGroup">
+                        <label for="topicDescription">Topic Description</label>
+                        <textarea id="topicDescription" asp-for="Topic.TopicDescription"></textarea>
+                    </div>
+                    <!-- Save topic and add to basket -->
+                    <button type="submit" class="submitProposal">Add Topic</button>
+                </form>
+            </div>
+    </div>
+}
+
+
+
+
+
+

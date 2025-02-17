@@ -1,0 +1,58 @@
+﻿
+
+@page
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+@model Project_Management_System.Pages.AccountProfile.AllocateStaffModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@inject UserManager<SPMS_Staff> StaffManager
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry & Scott-->
+
+
+<link rel="stylesheet" href="~/css/allocateStaff.css">
+
+<div class="body--edit--container">
+    <span class="editTitle">@Html.DisplayFor(model => model.Topic.TopicName)</span>
+    <form method="post">
+        <div class="editGroup">
+            <label asp-for="Topic.TopicDescription" class="control-label"></label>
+            <!-- Displays the name and decription of the topic -->
+            @Html.DisplayFor(model => model.Topic.TopicDescription)
+        </div>
+        <div class="editGroup">
+            <label for="topicSupervisor">Supervisor ID</label>
+            <select asp-for="Topic.SupervisorID">
+                <option value= null>Allocate supervisor here</option>
+                <!-- Displays a list of all staff -->
+                @foreach (var staff in StaffManager.Users)
+                {
+                    <option value=@staff.Id>@staff.Name</option>
+                }
+            </select>
+        </div>
+        
+        <div class="editGroup">
+            <label for="topicMarker">Marker ID</label>
+            <select asp-for="Topic.MarkerID">
+                <option value= null>Allocate marker here</option>
+                <!-- Displays a list of all staff -->
+                @foreach (var staff in StaffManager.Users)
+                {
+                    <option value=@staff.Id>@staff.Name</option>
+                }
+            </select>
+        </div>
+        <div class="editButtonsGroup"> <!-- Button to submit form and send to page handler -->
+            <input type="submit" value="Save" class="saveBtn" />
+        </div>
+    </form>
+    
+</div>
+<a asp-page="./CoordinatorProfile">Back to Profile</a> <!-- Redirect to profile page -->
+
+    

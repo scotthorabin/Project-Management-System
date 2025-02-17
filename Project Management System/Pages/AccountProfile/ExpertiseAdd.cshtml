@@ -1,0 +1,35 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+@model Project_Management_System.Pages.AccountProfile.ExpertiseAddModel
+
+<link href="~/css/addProposal.css" rel="stylesheet" />
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry & Scott-->
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="body--addProposal--container">
+    <span class="addTitle">Add an Expertise</span>
+
+    <form method="post">
+        <div class="addGroup"> <!-- Form that allows staff to add an Expertise-->
+            <label for="topicName">Expertise</label>
+            <input id="topicName"asp-for="StaffExpertise.Expertise" />
+        </div>
+
+        <div class="addGroup">
+            <button type="submit" class="addBtn">Add Expertise</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

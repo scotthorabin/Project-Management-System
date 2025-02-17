@@ -1,0 +1,41 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+@model Project_Management_System.Pages.AccountProfile.DivisionAddModel
+
+<link href="~/css/addProposal.css" rel="stylesheet" />
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry & Scott-->
+
+<div class="body--addProposal--container">
+    <span class="addTitle">Add a Division</span>
+    <!-- Reads in list of divisions the user can add and once chosen will submit division ID for page handler -->
+    <form method="post">
+        <div class="addGroup">
+            <label for="topicName">Division</label>
+            <select asp-for="StaffDivision.DivisionID" required>
+                <option value=0></option>
+                @foreach (var division in Model.Division)
+                {
+                    <option value="@division.DivisionID">@Html.ValueFor(modelDivision => division.DivisionName)</option>
+                }
+            </select>
+        </div>
+
+        <div class="addGroup">
+            <button type="submit" class="addBtn">Add Division</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

@@ -1,0 +1,165 @@
+﻿/* Following CSS Created by: George */
+
+
+.body--coordinator--title {
+    position: absolute;
+    top: 130px;
+    left: 40px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid red;
+    font-size: 24px;
+}
+
+.body--coordinator--infoBoxes {
+    position: absolute;
+    top: 100px;
+    right: 50px;
+    width: 50%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+}
+
+.infoBoxCoordinator {
+    position: relative;
+    width: 100%;
+    min-height: 60px;
+    margin-top: 1px;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.divider {
+    position: relative;
+    left: calc(50% + 15px);
+    width: 100%;
+    height: 1px;
+    transform: translateX(-50%);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: black;
+}
+
+.boxTitle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+.infoBoxCoordinator:hover {
+    border-color: black;
+}
+
+.infoBoxCoordinator.expanded {
+    border-color: black;
+    min-height: 300px;
+    max-height: 300px;
+}
+
+.infoBoxCoordinator.expanded .boxTitle {
+    top: 25px;
+}
+
+.expandBtn {
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.expandIcon {
+    width: 40px;
+    height: 40px;
+    background-image: url(../images/ArrowRegularIcon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: rotate(270deg);
+    transition: transform 0.3s ease;
+}
+
+.coordinatorContent {
+    display: none;
+    width: 80%;
+    flex-direction: column;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-top: 30px;
+    transition: all 0.5s ease-in-out;
+    border-radius: 5px;
+    overflow-y: scroll;
+}
+
+.infoBoxCoordinator.expanded .coordinatorContent {
+    display: block;
+    opacity: 1;
+}
+
+.contentContainer {
+    width: 95%;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.contentContainer a {
+    text-decoration: none;
+    color: blue;
+    transition: all 0.3s;
+    padding: 1px;
+}
+
+.contentContainer a:hover {
+    color: #708fb4;
+}
+
+    .contentTitle {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+.contentDescription {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+@media(max-width: 1200px) {
+    .body--profile--container {
+        height: 1500px;
+    }
+
+    .body--profile--infoSection {
+        top: 1100px;
+    }
+
+    .body--coordinator--infoBoxes {
+        position: relative;
+        top: 400px;
+        left: 50%;
+        width: 80%;
+        transform: translateX(-50%);
+    }
+
+    footer {
+        top: 1800px !important;
+    }
+}
+
+@media(max-width: 768px) {
+    .boxTitle {
+        font-size: 18px;
+    }
+}

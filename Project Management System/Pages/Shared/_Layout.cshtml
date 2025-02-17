@@ -1,0 +1,148 @@
+﻿
+<!-- Inject sign in and user manager dependancies -->
+@inject SignInManager<SPMS_User> SignInManager
+@inject UserManager<SPMS_User> UserManager
+
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Project_Management_System</title>
+    <!-- Links to stylesheets and JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+   <header class="header--standard">
+        <div id="sidebar">
+            <div class="header--sidebar--header">
+                <button class="header--sidebar--userAccount">@UserManager.GetUserName(User)</button>
+              
+            </div>
+
+            <ul>
+             <!--Change the asp pages and the titles to what you want/add more by copy and pasting the 'li' elements-->
+            <div class="header--sidebar--section">
+                <a asp-area="" asp-page="/Index">
+                    <li>Home</li>
+                </a>
+            </div>
+            @*  Checks if user is in role student. If they are they then the submit proposal link will show.  *@
+            @if (User.IsInRole("Student")){
+                <div class="header--sidebar--section">
+                    <a asp-area="" asp-page="/Submit_Proposal">
+                        <li>Submit Proposal</li>
+                    </a>
+                </div>
+            }
+            </ul>
+            <div class="header--hamburger--uocLogo"></div>
+          </div>
+
+          <div>
+            <button class="hamburgerButton" id="toggle">
+                <div class="hamburgerLine"></div>
+                <div class="hamburgerLine"></div>
+                <div class="hamburgerLine"></div>
+            </button>
+          <div>
+
+        <div class="header--divider--desktop"></div>
+
+        <!--Change the target to the index-->
+        <a asp-page="/Index">
+            <div class="header--uocLogo--standard"></div>
+        </a>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <div class="header--userAccount--standard">
+                        <button type="button" class="header--accountBtn">
+                            @{
+                                var user = await UserManager.GetUserAsync(User);
+                            }
+                            @(user.Name)<!-- Greet user by there name rather than username -->
+                        </button>
+                        <div class="dropdown-menu" style="display: none;">
+                            <!-- 
+                                This section of code will check roles of users and will send them to the correct profile
+                                based on the role they are in.
+                            -->
+                            @if (User.IsInRole("Staff"))
+                            {
+                                <a asp-page="/AccountProfile/StaffProfile" class="dropdown-item">Profile</a>
+                            }
+                            else if (User.IsInRole("Student"))
+                            {
+                                <a asp-page="/AccountProfile/StudentProfile" class="dropdown-item">Profile</a>
+                            }
+                            else if (User.IsInRole("Co-ordinator"))
+                            {
+                                <a asp-page="/AccountProfile/CoordinatorProfile" class="dropdown-item">Profile</a>
+                            }
+                            <!--Form and anchor tag to logout-->
+                            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+                               
+                            </form>
+                            <a id="logout" class="dropdown-item" href="#">Logout</a>
+
+                            
+                        </div>
+                        
+                    </div>
+                }
+                else
+                {
+                    <div class="header--userAccount--standard">
+                        <!-- Hidden account button, show as needed. Only shows when no user is logged in -->
+                        <a asp-area="Identity" asp-page="/Account/Login" class="header--accountBtn">Login</a>
+                    </div>
+
+                }
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer--standard">
+        <ul class="footer--ul">
+            <!-- Add the hrefs to the portal and Moodle -->
+            <li class="footer--li">
+                <a href="https://apps.chester.ac.uk/v2apps/moodle">Moodle</a>
+            </li>
+            <li class="footer--divider">|</li>
+            <li class="footer--li">
+                <a href="https://portal1.chester.ac.uk/Pages/default.aspx">Portal</a>
+            </li>
+        </ul>
+   
+
+        <!--same again for this section with the username-->
+        <div class="footer--userAccount">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <span class="footer--userAccount--username">
+                    You are currently logged in as:   
+                    @{
+                        var user = await UserManager.GetUserAsync(User);
+                    }
+                    <u>@(user.UserName)</u><!-- Greet user by there name rather than username -->
+                </span>
+               
+            }
+        </div>
+    </footer>
+    
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

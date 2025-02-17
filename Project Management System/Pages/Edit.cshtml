@@ -1,0 +1,98 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+@model Project_Management_System.Pages.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@inject UserManager<SPMS_Staff> StaffManager
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry & Scott-->
+
+
+<link rel="stylesheet" href="~/css/editProposal.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/editProposal.js"></script>
+
+<body>
+    <div class="body--edit--container">
+        <form method="post">
+            <span class="editTitle">Edit a Topic</span>
+
+            <div class="editGroup">
+                <label asp-for="TopicID"></label>
+                <select id="topicDropdown" asp-for="TopicID">
+                    <option value="">-- Select Topic --</option>
+                   @*  <option value="Model.Topic.TopicID" data-name="@Model.Topic.TopicName" data-description="@Model.Topic.TopicDescription" data-supervisor="@Model.Topic.SupervisorID" data-marker="@Model.Topic.MarkerID">@Model.Topic.TopicName</option> *@
+                    @foreach (var topic in Model.Topics)
+                    {
+                        <option value="@topic.TopicID" data-name="@topic.TopicName" data-description="@topic.TopicDescription" data-supervisor="@topic.SupervisorID" data-marker="@topic.MarkerID">@topic.TopicName</option>
+                    }
+                </select>
+                <span asp-validation-for="TopicID" class="ErrorMsg"></span>
+            </div>
+
+            <div class="editSection" style="display: none;">
+                <div class="editGroup">
+                    <label for="topicName">Topic Name</label>
+                    <input id="topicName" asp-for="Topic.TopicName" />
+                </div>
+
+                <div class="editGroup">
+                    <label for="topicDescription">Topic Description</label>
+                    <textarea id="topicDescription" asp-for="Topic.TopicDescription"></textarea>
+                </div>
+                @if (User.IsInRole("Staff"))
+                {
+                    <div class="editGroup">
+                        <label for="topicMarker">Marker ID</label>
+                        <select asp-for="Topic.MarkerID">
+                            <option value= null>Choose marker here</option>
+                            @{
+                                var user = await StaffManager.GetUserAsync(User);
+                                if(user != null)
+                                {
+                                    foreach (var staff in StaffManager.Users.Where(i=> i.Id != user.Id))
+                                    {
+                                        <option value=@staff.Id>@staff.Name</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                }
+
+                @if (User.IsInRole("Co-ordinator"))
+                {
+                    <div class="editGroup">
+                        <label for="topicSupervisor">Supervisor ID</label>
+                        <select asp-for="Topic.SupervisorID">
+                            <option value= null>Choose supervisor here</option>
+                            @foreach (var staff in StaffManager.Users)
+                            {
+                                <option value=@staff.Id>@staff.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="editGroup">
+                        <label for="topicMarker">Marker ID</label>
+                        <select asp-for="Topic.MarkerID">
+                            <option value= null>Choose marker here</option>
+                            @foreach (var staff in StaffManager.Users)
+                            {
+                                <option value=@staff.Id>@staff.Name</option>
+                            }
+                        </select>
+                    </div>
+                }
+                <div class="editButtonsGroup">
+                    <input type="submit" value="Save" class="saveBtn" />
+                    <input type="submit" value="Delete" name="command" class="DeleteBtn" />
+                </div>
+            </div>
+        </form>
+    </div>
+</body>

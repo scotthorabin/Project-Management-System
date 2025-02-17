@@ -1,0 +1,51 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+@model Project_Management_System.Pages.AccountProfile.ExpertiseEditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@inject UserManager<SPMS_Staff> StaffManager
+
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry & Scott-->
+
+<link rel="stylesheet" href="~/css/editProposal.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/editProposal.js"></script>
+<!-- Form that allows staff to delete and edit their expertise -->
+<body>
+    <div class="body--edit--container">
+        <form method="post">
+            <span class="editTitle">Edit an Expertise</span>
+
+            <div class="editGroup">
+                <label asp-for="ExpertiseID"></label>
+                <select id="topicDropdown" asp-for="ExpertiseID">
+                    <option value="">-- Select Expertise --</option>
+                   @* Reads in list of current expertise *@
+                    @foreach (var expertise in Model.StaffExpertises)
+                    {
+                        <option value="@expertise.ExpertiseID" data-interest="@expertise.Expertise">@expertise.Expertise</option>
+                    }
+                </select>
+                <span asp-validation-for="ExpertiseID" class="ErrorMsg"></span>
+            </div>
+            @* Display name of experise and allows user to edit *@
+            <div class="editSection" style="display: none;">
+                <div class="editGroup">
+                    <label for="topicName">Interest</label>
+                    <input id="topicName" asp-for="StaffExpertise.Expertise" />
+                </div>
+                <div class="editButtonsGroup">
+                    <input type="submit" value="Save" class="saveBtn" />
+                    <input type="submit" value="Delete" name="command" class="DeleteBtn" />
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+

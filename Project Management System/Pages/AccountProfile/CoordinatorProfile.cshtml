@@ -1,0 +1,165 @@
+﻿@page
+@model Project_Management_System.Pages.AccountProfile.CoordinatorProfileModel
+
+@inject SignInManager<SPMS_User> SignInManager
+@inject UserManager<SPMS_User> UserManager
+@inject UserManager<SPMS_Student> Students
+
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry & Scott-->
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+<script src="../js/projectCoordinatorBoxes.js"></script>
+<link rel="stylesheet" href="../css/staffProfile.css">
+<link rel="stylesheet" href="../css/coordinatorProfile.css">
+
+<body>
+    <span class="body--coordinator--title">Project Co-ordinator</span>
+    <div class="body--profile--container">
+        <div class="body--profile--name">
+            @if(user != null){
+                <span>@user.Name</span>
+            }
+        </div>
+        <div class="body--profile--profilePicture">
+            @{
+                try
+                {
+                    <img src="@string.Format("data:image/jpg;base64, {0}", Convert.ToBase64String(@user.ProfilePicture))" alt="Profile Image" class="staffimg" />
+                }
+                catch
+                {
+                    <!-- Handle if there's no profile picture -->
+                }
+            }
+            <!--Have this hidden for anyone but their profile-->
+            <div class="body--profile--updatePicture">
+                <form method="post" enctype="multipart/form-data">
+                    <input type="file" name="uploadedImage" onchange="this.form.submit();" />
+                </form>
+            </div>
+        </div>
+
+        <div class="body--profile--infoSection">
+            
+            <div class="body--profile--infoGroup">
+                <label for="department">Divisions</label>
+                <!--For each loop here to display all departments, just use one li element-->
+                <ul class="departmentList">
+                    @foreach (var divisionlink in Model.StaffDivisions.Where(i => i.StaffID == user.Id))
+                    {
+                        @foreach (var division in Model.Divisions.Where(i => i.DivisionID == divisionlink.DivisionID))
+                        {
+                            <li>
+                                <span>@Html.ValueFor(modelDivisions => division.DivisionName)</span>
+                                <form method="post">
+                                    <button type="submit" class="removeDepartment" asp-route-DivisionID="@division.DivisionID" asp-page-handler="Delete">
+                                        <div class="removeIcon"></div>
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                    }
+                    @* Links to page allowing user to add division *@
+                    <a asp-page="./DivisionAdd">
+                        <button class="editInfo"></button>
+                    </a>
+                </ul>
+            </div>
+            
+            @* Display email of user *@
+            <div class="body--profile--infoGroup">
+                <label for="email">Email</label>
+                <div class="staffInfoBox">
+                    <span name="email" class="body--profile--email">@user.Email</span>
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="body--coordinator--infoBoxes">
+            
+            <div class="infoBoxCoordinator">
+                <span class="boxTitle">Student Project Proposals</span>
+                <button class="expandBtn">
+                    <div class="expandIcon"></div>
+                </button>
+                <div class="coordinatorContent">
+                    @* Iterates through list of proposals from students and displays name, student number and description *@
+                    @foreach(var topic in Model.StudentProposals)
+                    {
+                        <div class="contentContainer">
+                            <span class="contentTitle">@topic.TopicName</span>
+                            <span class="contentDescription">@topic.TopicDescription</span>
+                            @* Links to page allowing user to allocate supervior / marker *@
+                            <a asp-page="./AllocateStaff" asp-route-id="@topic.TopicID">Allocate Supervisor / Marker</a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="infoBoxCoordinator">
+                <span class="boxTitle">Postgraduate Submissions</span>
+                <button class="expandBtn">
+                    <div class="expandIcon"></div>
+                </button>
+                <div class="coordinatorContent">
+                    @* Iterates through list of proposals from postgraduates and displays student number, title and description *@
+                    @foreach (var proposal in Model.PostgraduateProposals)
+                    {
+                        @foreach (var topic in Model.Topics.Where(i => i.TopicID == proposal.TopicID))
+                        {
+                        <div class="contentContainer">
+                            <span class="contentTitle">
+
+                                @{
+                                    var student = await Students.FindByIdAsync(proposal.StudentID);
+                                 }
+                                 @student.StudentNo
+                            </span>
+                            <span class="contentTitle">@topic.TopicName</span>
+                            <span class="contentDescription">@topic.TopicDescription</span>
+                            </div>
+                    }
+                }
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="infoBoxCoordinator">
+                <span class="boxTitle">Undergraduate Submissions</span>
+                <button class="expandBtn">
+                    <div class="expandIcon"></div>
+                </button>
+                <div class="coordinatorContent">
+                    <div class="contentContainer">
+                        @foreach (var proposal in Model.UndergraduateProposals)
+                        { @* Iterates through list of proposals from undergraduates and displays student number and title of each three topics *@
+                                <div class="contentContainer">
+                                    <span class="contentTitle">
+
+                                        @{
+                                            var student = await Students.FindByIdAsync(proposal.StudentID);
+                                        }
+                                        @student.StudentNo
+                                    </span>
+                                    <span class="contentDescription">@Model.Topics.Where(i => i.TopicID == proposal.TopicID1).First().TopicName</span>
+                                    <span class="contentDescription">@Model.Topics.Where(i => i.TopicID == proposal.TopicID2).First().TopicName</span>
+                                    <span class="contentDescription">@Model.Topics.Where(i => i.TopicID == proposal.TopicID3).First().TopicName</span>
+                                </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

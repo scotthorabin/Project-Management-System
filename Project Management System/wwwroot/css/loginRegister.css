@@ -1,0 +1,238 @@
+﻿/* Following CSS Created by: George */
+
+
+.body--login--container {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    width: 70%;
+    min-width: 650px;
+    height: 1000px;
+    margin-bottom: 100px;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 2px solid #888888;
+    box-shadow: 3px 3px 3px #888888;
+}
+
+.body--login--uocContainer {
+    position: relative; /* Or keep absolute if required for design */
+    width: 100%;
+    height: 150px; /* Adjust if needed */
+    background-color: #F0F0F0;
+    border-bottom: 2px solid #888888;
+}
+
+.body--login--uocLogo {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 130px;
+    background-image: url(../images/uoc\ 1.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.body--login--container input {
+    width: 80%;
+    height: 25px;
+    margin: 10px 0;
+    padding: 5px;
+    padding-left: 10px;
+    border: 1px solid #888888;
+    font-size: 16px;
+}
+
+.loginForm {
+    position: relative; /* Position relative to the preceding element */
+    top: 30px; /* Set the space below the logo container */
+    width: 80%;
+    max-width: 900px;
+    margin: 0 auto; /* Center the form in the parent container */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.body--login--container form input:focus {
+    outline: none;
+    border: 1px solid #297FE3;
+}
+
+.body--loginForm--checkboxContainer {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+    .body--loginForm--checkboxContainer label {
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+.loginForm input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 10px 0;
+}
+
+.loginForm a {
+    font-size: 16px;
+    color: #297FE3;
+    text-decoration: none;
+}
+
+    .loginForm a:hover {
+        text-decoration: underline;
+    }
+
+.body--login--submitButton {
+    position: relative;
+    top: 30px;
+    width: 80%;
+    height: 50px;
+    margin: 0 auto;
+    background-color: #297FE3;
+    font-size: 20px;
+    border: none;
+    color: white;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+    .body--login--submitButton:hover {
+        background-color: #106CBF;
+    }
+
+.body--register--newUserToggler {
+    position: relative;
+    top: 120px;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+    .body--register--newUserToggler span {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+.body--register--inputToggle {
+    position: relative;
+    width: 50%;
+    max-width: 500px;
+    height: 50px;
+    background-color: #EA3C3C;
+    font-size: 20px;
+    color: white;
+    border: none;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.body--register--submitButton {
+    position: relative;
+    top: 30px;
+    width: 80%;
+    height: 50px;
+    margin: 0 auto;
+    background-color: #297FE3;
+    font-size: 20px;
+    border: none;
+    color: white;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.body--register--inputToggle:hover {
+    background-color: #C92B2B;
+}
+
+.registerForm {
+    position: relative;
+    top: 30px;
+    width: 80%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerFormStaff {
+    position: relative;
+    top: 30px;
+    width: 80%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+    .registerFormStaff select {
+        margin: 10px;
+        font-size: 16px;
+    }
+
+.body--register--errorMessage {
+    position: relative;
+    top: 50px;
+    width: 80%;
+    max-width: 900px;
+    margin: 0 auto;
+    color: red;
+    text-align: center;
+    font-size: 16px;
+}
+
+.body--register--staffToggler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 80px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .body--register--staffToggler button, .body--register--staffToggler span {
+        background-color: transparent;
+        border: none;
+        margin: 0 20px;
+    }
+
+.body--register--staffFormToggler span {
+    font-size: 16px;
+}
+
+.body--register--staffToggler button {
+    height: 40px;
+    padding: 4px 8px;
+    background-color: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+    .body--register--staffToggler button:hover {
+        border-bottom: 2px solid red;
+    }
+
+.error-message {
+    display: block;
+    color: red;
+    font-size: 16px;
+    background-color: #fde8ec;
+    transition: transform 0.3s ease-out;
+}

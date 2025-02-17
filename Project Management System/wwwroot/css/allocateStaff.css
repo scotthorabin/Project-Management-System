@@ -1,0 +1,101 @@
+﻿/* Following CSS Created by: George */
+
+
+body {
+}
+
+.body--edit--container {
+    position: absolute;
+    top: 180px;
+    left: 50%;
+    width: 90%;
+    height: 500px;
+    transform: translateX(-50%);
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #888888;
+    display: flex;
+    flex-direction: column;
+}
+
+.editTitle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 8px;
+    font-size: 24px;
+    border-bottom: 2px solid red;
+}
+
+.editSection {
+    display: none;
+}
+
+.editGroup {
+    position: relative;
+    top: 80px;
+    left: 20px;
+    margin-top: 20px;
+    width: 40%;
+    padding: 10px;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 2px #888888;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.editGroup select {
+    padding: 8px;
+    font-size: 15px;
+}
+
+.ErrorMsg {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: red;
+}
+
+.editGroup label {
+    font-size: 20px;
+}
+
+.editGroup input {
+    padding: 10px;
+    font-size: 16px;
+}
+
+.editGroup #topicDescription {
+    height: 150px;
+    resize: none;
+    overflow-y: scroll;
+    font-size: 16px;
+}
+
+.editButtonsGroup {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 10%;
+    max-width: 350px;
+    height: 90px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.editButtonsGroup input {
+    border: none;
+    margin: 30px;
+    font-size: 18px;
+    height: 40px;
+    min-width: 100px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.editButtonsGroup input:hover {
+    border-bottom: 2px solid red;
+}

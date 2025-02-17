@@ -1,0 +1,443 @@
+﻿/* Following CSS Created by: George */
+
+
+.body--submitLevel6--container {
+    position: absolute;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 850px;
+    background-color: #F0F0F0;
+    box-shadow: 2px 2px 9px#888888;
+    border-radius: 6px;
+}
+
+.body--submitLevel6--title {
+    position: relative;
+    top: 20px;
+    left: 20px;
+    font-size: 28px;
+}
+
+.body--submitLevel6--studentDetails {
+    position: relative;
+    top: 40px;
+    left: 0;
+    width: 40%;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .body--submitLevel6--studentDetails li {
+        font-size: 18px;
+        height: 40px;
+        min-width: 400px;
+        background-color: white;
+        margin-bottom: 10px;
+        list-style-type: none;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        box-shadow: 2px 2px 9px #888888;
+    }
+
+.confirmDetailsContianer {
+    position: relative;
+    top: 40px;
+    left: 10px;
+    width: 80%;
+    height: 30px;
+    font-size: 18px;
+}
+
+    .confirmDetailsContianer label {
+        position: relative;
+        margin: auto 0;
+    }
+
+.incorrectDetails {
+    text-decoration: underline;
+    color: #4E9FFE;
+    cursor: pointer;
+}
+
+.additionalInfo {
+    display: none;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: #3b3b3b;
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    text-decoration: none;
+    z-index: 100;
+}
+
+
+.confirmDetailsContianer input {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+}
+
+.topicProposalContainer {
+    transition: height 0.3s ease-in-out;
+}
+
+
+.proposalsTitle {
+    position: relative;
+    top: 70px;
+    left: 20px;
+    font-size: 22px;
+}
+
+.proposalsPriority {
+    position: absolute;
+    bottom: 100px;
+    left: 20px;
+    width: 80%;
+    max-width: 1000px;
+    height: 270px;
+    background-color: #D9D9D9;
+    overflow-y: scroll;
+}
+
+.proposalBox {
+    position: relative;
+    width: 95%;
+    height: 60px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    box-shadow: 3px 3px 3px #888888;
+    cursor: move;
+}
+
+.over {
+    border: 2px dashed #000;
+}
+
+.proposalDivider {
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    height: 90%;
+    width: 2px;
+    transform: translateY(-50%);
+    background-color: black;
+}
+
+.proposalID {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    font-size: 22px;
+}
+
+.body--submitLevel6--container .body--proposal--Toggler {
+    top: 350px;
+}
+
+.proposalBox h1 {
+    position: relative;
+    margin: auto 0;
+    margin-left: 80px;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.removeBox {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    height: 100%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    cursor: pointer;
+    background-color: #EA3C3C;
+    border: none;
+    transition: all 0.3s;
+}
+
+    .removeBox:hover {
+        background-color: #FF0000;
+    }
+
+.removeIcon {
+    background-image: url(../images/BinIcon.svg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 40px;
+}
+
+.informationIconContainer {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    width: 20%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+.informationIcon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #4E9FFE;
+    color: white;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    font-size: 20px; 
+    text-align: center; 
+}
+
+.informationIconContainer span {
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    transform: translateY(-50%);
+    white-space: nowrap;
+}
+
+.submitProposal {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    background-color: #4E9FFE;
+    color: white;
+    border: none;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+    .submitProposal:hover {
+        background-color: #2B80E4;
+        color: white;
+    }
+
+.body--submitLevel7--container {
+    position: absolute;
+    top: 154px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 650px;
+    background-color: #F0F0F0;
+    box-shadow: 2px 2px 9px#888888;
+    border-radius: 6px;
+}
+
+.body--submitLevel7--title {
+    position: relative;
+    top: 20px;
+    left: 20px;
+    font-size: 28px;
+}
+
+.proposalsPriorityLevel7 {
+    position: relative;
+    top: 130px;
+    width: 80%;
+    max-width: 1000px;
+}
+
+    .proposalsPriorityLevel7 .proposalBox {
+        cursor: default;
+    }
+
+.body--proposal--Toggler {
+    position: absolute;
+    top: 280px;
+    left: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 80px;
+    margin-top: 10px;
+}
+
+    .body--proposal--Toggler button span {
+        background-color: transparent;
+        border: none;
+        margin: 20px 20px;
+    }
+
+    .body--proposal--Toggler button {
+        height: 40px;
+        padding: 4px 8px;
+        border: none;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+        .body--proposal--Toggler button:hover {
+            background-color: #F0F0F0;
+            border-bottom: 2px solid red;
+        }
+
+.formUploadContainer {
+    display: none;
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    max-height: 300px;
+    max-width: 80%;
+    top: 450px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.formUploadContainer form {
+    width: 80%;
+    height: 100%;
+}
+
+.formUploadContainer span {
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.addGroup {
+    position: relative;
+    width: 80%;
+    min-height: 20px;
+    min-width: 120px;
+    max-width: 900px;
+    padding: 8px;
+    background-color: white;
+    box-shadow: 3px 3px 3px #888888;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+
+.addGroup label {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.addGroup textarea {
+    min-width: 250px;
+    min-height: 100px;
+    max-width: 400px;
+    max-height: 300px;
+}
+
+.addGroup textarea, .addGroup input, .addGroup select {
+    width: 90%; 
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc; 
+    box-sizing: border-box;
+}
+
+footer {
+    top: 1800px !important;
+}
+
+@media(max-width: 768px) {
+
+    .body--submitLevel6--title span {
+        font-size: 22px;
+    }
+
+    .body--submitLevel7--title span {
+        font-size: 22px;
+    }
+
+    .body--submitLevel6--studentDetails {
+        position: relative;
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-left: 0px;
+    }
+
+        .body--submitLevel6--studentDetails li {
+            min-width: 80%;
+            font-size: 14px;
+            white-space: wrap;
+        }
+
+    .confirmDetailsContianer label {
+        font-size: 14px;
+    }
+
+    .additionalInfo {
+        height: 180px;
+    }
+
+    .proposalBox {
+        left: -30px;
+        width: 100%;
+    }
+
+        .proposalBox h1 {
+            font-size: 14px;
+            margin-left: 60px;
+        }
+
+    .informationIconContainer {
+        position: absolute;
+        bottom: 60px;
+        width: 90%;
+    }
+
+        .informationIconContainer span {
+            font-size: 14px;
+        }
+
+    .body--proposal--Toggler {
+        top: 320px;
+    }
+
+    .body--proposal--Toggler {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 18px;
+        white-space: nowrap;
+    }
+
+    .proposalsTitle {
+        position: relative;
+        font-size: 12px;
+        width: 90%;
+        display: block;
+    }
+
+    .formUploadContainer {
+        top: 150px;
+    }
+}

@@ -1,0 +1,152 @@
+﻿@page
+@model Project_Management_System.Pages.AccountProfile.StaffProfileModel
+@{
+}
+
+@inject SignInManager<SPMS_User> SignInManager
+@inject UserManager<SPMS_User> UserManager
+
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff</title>
+<link rel="stylesheet" href="~/css/staffProfile.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="~/js/staffInfoBoxes.js"></script>
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry & Scott-->
+
+<h3>@ViewData["Title"]</h3> 
+
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+<body>
+    @if (user != null)
+    {
+        <span class="body--staffProfile--title">Staff Profile</span>
+        <div class="body--profile--container">
+            <div class="body--profile--name">
+                <span>
+
+                    @(user.Name)<!-- Greet user by there name rather than username -->
+                </span>
+            </div>
+
+            <div class="body--profile--profilePicture">
+                @{
+                    try
+                    {
+                        <img src="@string.Format("data:image/jpg;base64, {0}", Convert.ToBase64String(@user.ProfilePicture))" alt="Profile Image" class="staffimg" />
+                    }
+                    catch
+                    {
+                        <!-- Handle if there's no profile picture -->
+                        <div class="demoIMG"></div>
+                    }
+                }
+                <!--Have this hidden for anyone but their profile-->
+                <div class="body--profile--updatePicture">
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="file" class="uploadedImage" name="uploadedImage" onchange="this.form.submit();" />
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="body--profile--infoSection">
+
+                <div class="body--profile--infoGroup">
+                    <label for="department">Divisions</label>
+                    <!--For each loop here to display all division, just use one li element-->
+                    <ul class="departmentList">
+                        @foreach (var divisionlink in Model.StaffDivisions.Where(i => i.StaffID == user.Id))
+                        {
+                            @foreach (var division in Model.Divisions.Where(i => i.DivisionID == divisionlink.DivisionID))
+                            {
+                                <li>
+                                    <span>@Html.ValueFor(modelDivisions => division.DivisionName)</span>
+                                    <form method="post">
+                                        <button type="submit" class="removeDepartment" asp-route-DivisionID = "@division.DivisionID" asp-page-handler="Delete">
+                                            <div class="removeIcon"></div> 
+                                        </button>
+                                    </form> @* Form that routes division to page handler which removes division *@
+                                </li>    
+                            }
+                        }
+                        <a asp-page="./DivisionAdd"> @* Link to page allowing staff to add more divisions *@
+                            <button class="editInfo"></button> 
+                        </a>
+                    </ul>
+                </div>
+
+                <div class="body--profile--infoGroup">
+                    <label for="email">Email</label>
+                    <div class="staffInfoBox">
+                        <span name="email" class="body--profile--email">
+                            @(user.Email)
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Flexible boxes that expand containing interests, expertise and fields where StaffID = logged in staff -->
+            <div class="body--profile--infoBoxes">
+                <div class="infoBox" id="expertise">
+                    <a asp-page="./ExpertiseEdit">
+                        <button class="editInfo"></button>
+                    </a> <!-- Links to CRUD operations -->
+                    <a asp-page="./ExpertiseAdd">
+                        <button class="AddInfo"></button>
+                    </a>
+                    <div class="infobox--icon"></div>
+                    <span class="infobox--title">Areas of Expertise</span>
+                    <div class="content" style="display: none;">
+                        @foreach (var expertise in Model.StaffExpertise)
+                        {
+                            <li>@expertise.Expertise</li>
+                        }
+                    </div>
+                </div>
+
+                <div class="infoBox" id="interests">
+                    <a asp-page="./InterestEdit">
+                        <button class="editInfo"></button>
+                    </a>  <!-- Links to CRUD operations -->
+                    <a asp-page="./InterestAdd">
+                        <button class="AddInfo"></button>
+                    </a>
+                    <div class="infobox--icon"></div>
+                    <span class="infobox--title">Lists of interests</span>
+                    <div class="content" style="display: none;">
+                        @foreach (var interest in Model.StaffInterest)
+                        {
+                            <li>@interest.Interest</li>
+                        }
+                    </div>
+                </div>
+
+                <div class="infoBox" id="projects">
+                    <button class="editInfo"></button>
+                    <div class="infobox--icon"></div>
+                    <span class="infobox--title">Current / Past Projects</span>
+                    <div class="content" style="display: none;">
+                        @foreach (var topics in Model.Topic)
+                        {
+                            <li>@topics.TopicName</li>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }

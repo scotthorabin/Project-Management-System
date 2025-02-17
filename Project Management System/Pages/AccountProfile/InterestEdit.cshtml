@@ -1,0 +1,49 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using Project_Management_System.Data
+@model Project_Management_System.Pages.AccountProfile.InterestEditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@inject UserManager<SPMS_Staff> StaffManager
+
+
+<!--Front End layout Created by: George-->
+<!--Back End Implementation Created by: Harry & Scott-->
+
+<link rel="stylesheet" href="~/css/editProposal.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/editProposal.js"></script>
+
+<body>
+    <div class="body--edit--container">
+        <!-- Form that allows staff to delete and edit their interest -->
+        <form method="post">
+            <span class="editTitle">Edit an Interest</span>
+            <div class="editGroup">
+                <label asp-for="InterestID"></label>
+                <select id="topicDropdown" asp-for="InterestID">
+                    <option value="">-- Select Interest --</option>
+                   @* Iterates through each interest in the IList and displays interest in drop down list *@
+                    @foreach (var interest in Model.StaffInterests)
+                    {
+                        <option value="@interest.InterestID" data-interest="@interest.Interest">@interest.Interest</option>
+                    }
+                </select>
+                <span asp-validation-for="InterestID" class="ErrorMsg"></span>
+            </div>
+
+            <div class="editSection" style="display: none;">
+                <div class="editGroup">
+                    <label for="topicName">Interest</label>
+                    <input id="topicName" asp-for="StaffInterest.Interest" />
+                </div>
+                <div class="editButtonsGroup"> <!-- Buttons to edit and delete interest -->
+                    <input type="submit" value="Save" class="saveBtn" />
+                    <input type="submit" value="Delete" name="command" class="DeleteBtn" />
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
